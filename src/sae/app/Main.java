@@ -113,7 +113,7 @@ public class Main {
 
                 break;
             }
-
+            for (Robot robotChoisi : monde.getRobots()) {
             System.out.println();
             System.out.println("Quel robot veux-tu contrôler ?");
             System.out.println("1 = Robot OR");
@@ -126,22 +126,8 @@ public class Main {
             if (choixRobot.equalsIgnoreCase("x")) {
 
                 System.out.println("Fin du programme.");
-                break;
-            }
-
-            Robot robotChoisi;
-
-            if (choixRobot.equals("1")) {
-                robotChoisi = robot1;
-            }
-
-            else if (choixRobot.equals("2")) {
-                robotChoisi = robot2;
-            }
-
-            else {
-                System.out.println("Robot invalide.");
-                continue;
+                scanner.close();
+                return;
             }
 
             System.out.println();
@@ -215,6 +201,7 @@ public class Main {
 
             else {
                 System.out.println("Action invalide.");
+            }
             }
 
             monde.jouerTour();
