@@ -126,7 +126,8 @@ public class Main {
             if (choixRobot.equalsIgnoreCase("x")) {
 
                 System.out.println("Fin du programme.");
-                break;
+                scanner.close();
+                return;
             }
 
             System.out.println();
