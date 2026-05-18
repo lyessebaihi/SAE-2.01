@@ -254,6 +254,9 @@ public class Monde {
             );
         }
     }
+    public ArrayList<Robot> getRobots(){
+        return robots;
+    }
 // incremente le nb tour
     public void jouerTour() {
 
