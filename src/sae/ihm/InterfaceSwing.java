@@ -3,6 +3,7 @@ import sae.model.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Random;
 
 public class InterfaceSwing extends JFrame {
 
@@ -11,6 +12,12 @@ public class InterfaceSwing extends JFrame {
 
     private JLabel[][] cases = new JLabel[20][20];
     private JTextArea infos = new JTextArea();
+
+    private Mine mine1, mine2;
+    private Entrepot entrepot1, entrepot2;
+
+    private JLabel labelTour = new JLabel("Tour : 0");
+    private JLabel labelRobot = new JLabel("Robot choisi : aucun");
 
     private boolean robot1AJoue = false;
     private boolean robot2AJoue = false;
