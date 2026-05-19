@@ -189,3 +189,147 @@ public class InterfaceSwing extends JFrame {
         afficherGrille();
         afficherInfos();
     }
+
+ private void afficherGrille() {
+
+        for (int i = 0; i < 20; i++) {
+            for (int j = 0; j < 20; j++) {
+                cases[i][j].setText("");
+                cases[i][j].setBackground(Color.WHITE);
+            }
+        }
+
+        for (int ligne = 0; ligne < 10; ligne++) {
+            for (int colonne = 0; colonne < 10; colonne++) {
+
+                Secteur secteur = monde.getSecteur(ligne, colonne);
+
+                int l = ligne * 2;
+                int c = colonne * 2;
+
+                if (secteur.isEstEau()) {
+                    remplirBloc(l, c, "X", Color.CYAN);
+                }
+
+                if (secteur.getMine() != null) {
+                    cases[l][c].setText("M");
+                    cases[l][c + 1].setText("" + secteur.getMine().getNumero());
+                    cases[l][c].setBackground(Color.GREEN);
+                    cases[l][c + 1].setBackground(Color.GREEN);
+                }
+
+                if (secteur.getEntrepot() != null) {
+                    cases[l][c].setText("E");
+                    cases[l][c + 1].setText("" + secteur.getEntrepot().getNumero());
+                    cases[l][c].setBackground(Color.YELLOW);
+                    cases[l][c + 1].setBackground(Color.YELLOW);
+                }
+
+                if (secteur.getRobot() != null) {
+                    cases[l + 1][c].setText("R");
+                    cases[l + 1][c + 1].setText("" + secteur.getRobot().getNumero());
+                    cases[l + 1][c].setBackground(Color.PINK);
+                    cases[l + 1][c + 1].setBackground(Color.PINK);
+                }
+            }
+        }
+    }
+
+    private void remplirBloc(int l, int c, String texte, Color couleur) {
+        cases[l][c].setText(texte);
+        cases[l][c + 1].setText(texte);
+        cases[l + 1][c].setText(texte);
+        cases[l + 1][c + 1].setText(texte);
+
+        cases[l][c].setBackground(couleur);
+        cases[l][c + 1].setBackground(couleur);
+        cases[l + 1][c].setBackground(couleur);
+        cases[l + 1][c + 1].setBackground(couleur);
+    }
+
+    private void afficherInfos() {
+        labelTour.setText("Tour : " + monde.getTourActuel());
+
+        infos.setText(
+                "ROBOTS\n"
+                        + "R1 | " + robot1.getTypeMinerai()
+                        + " | Position : (" + robot1.getLigne() + "," + robot1.getColonne() + ")"
+                        + " | Stock : " + robot1.getStockActuel() + "/" + robot1.getCapaciteStockage()
+                        + "\n"
+                        + "R2 | " + robot2.getTypeMinerai()
+                        + " | Position : (" + robot2.getLigne() + "," + robot2.getColonne() + ")"
+                        + " | Stock : " + robot2.getStockActuel() + "/" + robot2.getCapaciteStockage()
+                        + "\n\nMINES\n"
+                        + "M1 | " + mine1.getTypeMinerai()
+                        + " | Position : (" + mine1.getLigne() + "," + mine1.getColonne() + ")"
+                        + " | Stock : " + mine1.getStockActuel() + "/" + mine1.getStockInitial()
+                        + "\n"
+                        + "M2 | " + mine2.getTypeMinerai()
+                        + " | Position : (" + mine2.getLigne() + "," + mine2.getColonne() + ")"
+                        + " | Stock : " + mine2.getStockActuel() + "/" + mine2.getStockInitial()
+                        + "\n\nENTREPOTS\n"
+                        + "E1 | " + entrepot1.getTypeMinerai()
+                        + " | Position : (" + entrepot1.getLigne() + "," + entrepot1.getColonne() + ")"
+                        + " | Stock : " + entrepot1.getStock()
+                        + "\n"
+                        + "E2 | " + entrepot2.getTypeMinerai()
+                        + " | Position : (" + entrepot2.getLigne() + "," + entrepot2.getColonne() + ")"
+                        + " | Stock : " + entrepot2.getStock()
+        );
+    }
+
+    private void creerMonde() {
+        Random random = new Random();
+
+        for (int i = 0; i < 8; i++) {
+            int[] pos = positionLibre(random);
+            monde.ajouterEau(pos[0], pos[1]);
+        }
+
+        int[] p1 = positionLibre(random);
+        mine1 = new Mine(1, TypeMinerai.OR, p1[0], p1[1], nombreAleatoire(random, 50, 100));
+        monde.ajouterMine(mine1);
+
+        int[] p2 = positionLibre(random);
+        mine2 = new Mine(2, TypeMinerai.NICKEL, p2[0], p2[1], nombreAleatoire(random, 50, 100));
+        monde.ajouterMine(mine2);
+
+        int[] e1 = positionLibre(random);
+        entrepot1 = new Entrepot(1, TypeMinerai.OR, e1[0], e1[1]);
+        monde.ajouterEntrepot(entrepot1);
+
+        int[] e2 = positionLibre(random);
+        entrepot2 = new Entrepot(2, TypeMinerai.NICKEL, e2[0], e2[1]);
+        monde.ajouterEntrepot(entrepot2);
+
+        int[] r1 = positionLibre(random);
+        robot1 = new Robot(1, TypeMinerai.OR, r1[0], r1[1],
+                nombreAleatoire(random, 5, 9), nombreAleatoire(random, 1, 3));
+        monde.ajouterRobot(robot1);
+
+        int[] r2 = positionLibre(random);
+        robot2 = new Robot(2, TypeMinerai.NICKEL, r2[0], r2[1],
+                nombreAleatoire(random, 5, 9), nombreAleatoire(random, 1, 3));
+        monde.ajouterRobot(robot2);
+    }
+
+    private int[] positionLibre(Random random) {
+        int ligne = random.nextInt(10);
+        int colonne = random.nextInt(10);
+
+        while (!monde.caseLibre(ligne, colonne)) {
+            ligne = random.nextInt(10);
+            colonne = random.nextInt(10);
+        }
+
+        return new int[]{ligne, colonne};
+    }
+
+    private int nombreAleatoire(Random random, int min, int max) {
+        return random.nextInt(max - min + 1) + min;
+    }
+
+    public static void main(String[] args) {
+        new InterfaceSwing();
+    }
+}
