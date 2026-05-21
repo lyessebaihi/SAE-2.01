@@ -3,7 +3,7 @@ import javax.swing.*;
 import java.awt.*;
 
 
-public class ecranAccueil {
+public class EcranAccueil {
     public static void main(String[] args){
         //Base du code
         JFrame application = new JFrame();
