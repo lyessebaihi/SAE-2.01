@@ -1,6 +1,19 @@
 package sae.ihm;
+
 import sae.model.*;
 
+
+import sae.model.Direction;
+import sae.model.Entrepot;
+import sae.model.Mine;
+import sae.model.Monde;
+import sae.model.Robot;
+import sae.model.Secteur;
+import sae.model.TypeMinerai;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.Random;
 import javax.swing.*;
 import java.awt.*;
 import java.util.Random;
@@ -9,13 +22,11 @@ public class InterfaceSwing extends JFrame {
 
     private Monde monde;
     private Robot robot1, robot2, robotChoisi;
-
-    private JLabel[][] cases = new JLabel[20][20];
-    private JTextArea infos = new JTextArea();
-
     private Mine mine1, mine2;
     private Entrepot entrepot1, entrepot2;
 
+    private JLabel[][] cases = new JLabel[20][20];
+    private JTextArea infos = new JTextArea();
     private JLabel labelTour = new JLabel("Tour : 0");
     private JLabel labelRobot = new JLabel("Robot choisi : aucun");
 
@@ -23,6 +34,7 @@ public class InterfaceSwing extends JFrame {
     private boolean robot2AJoue = false;
 
     public InterfaceSwing() {
+
         monde = new Monde();
         creerMonde();
 
@@ -51,6 +63,7 @@ public class InterfaceSwing extends JFrame {
 
         setVisible(true);
     }
+
     private JPanel creerGrille() {
         JPanel grille = new JPanel(new GridLayout(20, 20));
 
@@ -197,7 +210,7 @@ public class InterfaceSwing extends JFrame {
         afficherInfos();
     }
 
- private void afficherGrille() {
+    private void afficherGrille() {
 
         for (int i = 0; i < 20; i++) {
             for (int j = 0; j < 20; j++) {

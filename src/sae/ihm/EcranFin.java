@@ -1,8 +1,8 @@
 
-package ihm;
+package sae.ihm;
 
-import model.Entrepot;
-
+import sae.model.Entrepot;
+import sae.model.TypeMinerai;
 import javax.swing.*;
 import java.awt.*;
 
@@ -100,19 +100,9 @@ public class EcranFin extends JFrame {
 
         setVisible(true);
     }
-    public static void main(String[] args){
-
-        Entrepot e1 =
-                new Entrepot(1,
-                        model.TypeMinerai.OR,
-                        0,
-                        0);
-
-        Entrepot e2 =
-                new Entrepot(2,
-                        model.TypeMinerai.NICKEL,
-                        0,
-                        0);
+    public static void main(String[] args) {
+        Entrepot e1 = new Entrepot(1, TypeMinerai.OR, 0, 0);
+        Entrepot e2 = new Entrepot(2, TypeMinerai.NICKEL, 0, 0);
 
         e1.ajouterMinerais(50);
         e2.ajouterMinerais(30);
