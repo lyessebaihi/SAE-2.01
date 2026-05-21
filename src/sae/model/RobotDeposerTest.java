@@ -11,7 +11,7 @@ class RobotDeposerTest {
         Mine mine = new Mine(1, TypeMinerai.OR, 0, 0, 10);
         Entrepot entrepot = new Entrepot(1, TypeMinerai.OR, 0, 0);
 
-        robot.recolter(mine); // stock robot = 2 nn c fo
+        robot.recolter(mine); 
 
         boolean resultat = robot.deposer(entrepot);
 
