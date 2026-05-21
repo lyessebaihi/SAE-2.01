@@ -262,4 +262,7 @@ public class Monde {
 
         tourActuel++;
     }
+     public int getTourActuel() {
+        return tourActuel;
+    }
 }
